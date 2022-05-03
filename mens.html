@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mens</title>
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+      #container{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        width:100%;
+        gap:20px;
+        font-family:sans-serif;
+      }
+      #container>div{
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius:10px;
+        padding:0px 0px 10px 0px;
+      }
+      #container>div>div{
+        display:flex;
+        justify-content: space-between;
+        padding:0px 15px;
+        margin-top:-40px;
+      }
+      #container>div>div>p+p{
+        text-decoration: line-through;
+        color:grey;
+      }
+      img{
+        width:100%;
+        border-radius:
+      }
+      button{
+        margin:0px 15px;
+        border-radius:4px;
+        font-size:17px;
+        border:3px blue solid;
+        background-color: whitesmoke;
+        color:blue;
+
+      }
+      h4{
+        padding:15px;
+        margin-top:-15px;
+      }
+    </style>
+</head>
+<body>
+  <div id="nav">
+    <p>Rebook</p>
+    <div>
+    <p onclick="mensPage()">Men</p>
+    <p onclick="womensPage()">Women</p>
+    
+</div>
+</div>
+  <h2>Mens Page</h2>
+  <div id="container"></div>
+    
+</body>
+</html>
+<script>
+  var cartArr = JSON.parse(localStorage.getItem("cartData"))||[];
+var mensData = [
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-EX4296/reebok_EX4296_1.jpg.plp",
+      name: "MEN'S REEBOK RUNNING ROADMAP SHOES",
+      price: "$1170",
+      strikedoffprice: "$2599",
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-EX3921/reebok_EX3921_1.jpg.plp",
+      name: "MEN'S REEBOK SWIM ARUBA FLIP SLIPPERS ",
+      price: 699,
+      strikedoffprice: 999,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-EX4160/reebok_EX4160_1.jpg.plp",
+      name: " MEN'S REEBOK RUNNING AUSTIN SHOES",
+      price: 945,
+      strikedoffprice: 2099,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-FV8798/MEN_SWIM_SLIPPERS_FV8798_1.jpg.plp",
+      name: "MEN'S REEBOK SWIM AVENGER FLIP LP SLIPPERS",
+      price: 399,
+      strikedoffprice: 799,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-EW5173/reebok_EW5173_1.jpg.plp",
+      name: "MEN'S REEBOK RUNNING TEMPO SHOES ",
+      price: 1620,
+      strikedoffprice: 3599,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-FV7329/reebok_FV7329_1.jpg.plp ",
+      name: " MEN'S REEBOK RUNNING ASTRO BOOSTER SHOES ",
+      price: 1440,
+      strikedoffprice: 3199,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GD8567/MEN_TRAINING_PANTS_GD8567_1.jpg.plp ",
+      name: " MEN'S TRAINING WORKOUT READY ELITAGE PANTS ",
+      price: 1999,
+      strikedoffprice: 3199,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GQ8758/reebok_GQ8758_1.jpg.plp ",
+      name: "MEN'S REEBOK TRAINING  POLO T-SHIRTS TEE  ",
+      price: 769,
+      strikedoffprice: 1099,
+    },
+    
+  ];
+
+  mensData.forEach(function(elem){
+    var card = document.createElement("div");
+
+    var image = document.createElement("img");
+    image.setAttribute("src",elem.image_url);
+
+    var dname = document.createElement("h4");
+    dname.innerText = elem.name;
+
+    var dprice = document.createElement("p");
+    dprice.innerText = elem.price;
+
+    var sdprice = document.createElement("p");
+    sdprice.innerText = elem.strikedoffprice;
+
+    var card1 = document.createElement("div");
+    card1.append(dprice,sdprice);
+
+    var btn = document.createElement("button");
+    btn.innerText = "Add to Cart";
+    btn.addEventListener("click",function(){
+      addToCart(elem);
+    })
+
+    card.append(image,dname,card1,btn);
+    document.querySelector("#container").append(card);
+    
+    function addToCart(elem){
+      var flag = true;
+        cartArr.forEach(function(ele){
+          if(elem.image_url===ele.image_url&&elem.name===ele.name&&elem.price===ele.price&&elem.strikedoffprice===ele.strikedoffprice){
+            flag = false;
+          }
+        })
+       if(flag) {
+        cartArr.push(elem);
+        localStorage.setItem("cartData",JSON.stringify(cartArr));
+        alert("Item added successfully!")
+       }
+       else {
+         alert("Item already added!")
+       }
+        
+    }
+
+  })
+  function signupPage() {
+        window.location.href = "signup.html"
+    }
+    function loginPage() {
+        window.location.href = "login.html"
+    }
+    function mensPage() {
+        var token = localStorage.getItem("token");
+        if (token) {
+            window.location.href = "mens.html"
+        }
+        else {
+            alert("Please login to start using our services!");
+            window.location.href = "login.html"
+        }
+    }
+    function womensPage() {
+        var token = localStorage.getItem("token");
+        if (token) {
+            window.location.href = "womens.html"
+        }
+        else {
+            alert("Please login to start using our services!");
+            window.location.href = "login.html"
+        }
+    }
+
+
+
+</script>

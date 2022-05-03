@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women</title>
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+      #container{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        width:100%;
+        gap:20px;
+        font-family:sans-serif;
+      }
+      #container>div{
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius:10px;
+        padding:0px 0px 10px 0px;
+      }
+      #container>div>div{
+        display:flex;
+        justify-content: space-between;
+        padding:0px 15px;
+        margin-top:-40px;
+      }
+      #container>div>div>p+p{
+        text-decoration: line-through;
+        color:grey;
+      }
+      img{
+        width:100%;
+        border-radius:
+      }
+      button{
+        margin:0px 15px;
+        border-radius:4px;
+        font-size:17px;
+        border:3px rgb(233, 59, 204) solid;
+        background-color: rgb(184, 56, 56);
+        color:rgb(47, 179, 30);
+
+      }
+      h4{
+        padding:15px;
+        margin-top:-15px;
+      }
+    </style>
+</head>
+<body>
+  <div id="nav">
+    <p>Rebook</p>
+    <div>
+    <p onclick="mensPage()">Men</p>
+    <p onclick="womensPage()">Women</p>
+    
+</div>
+</div>
+  <h2>Womens Page</h2>
+  <div id="container"></div>
+    
+</body>
+</html>
+<script>
+   var cartArr = JSON.parse(localStorage.getItem("cartData"))||[];
+var womensData = [
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GL2296/reebok_GL2296_1.jpg.plp",
+      name: "WOMEN'S REEBOK PRINT LEGGINGS ",
+      price: 1549,
+      strikedoffprice: 1799,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GV5726/reebok_GV5726_1.jpg.plp",
+      name: "WOMEN'S REEBOK POLYTIGHT",
+      price: 1249,
+      strikedoffprice: 1749,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GT2338/reebok_GT2338_1.jpg.plp",
+      name: "WOMEN'S REEBOK SLEEVE TEE",
+      price: 699,
+      strikedoffprice: 1245,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GL2841/adidas_GL2841_1.jpg.plp",
+      name: "WOMEN'S REEBOK PP TIGHTS",
+      price: 749,
+      strikedoffprice: 1299,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GL2842/adidas_GL2842_1.jpg.plp",
+      name: "WOMEN'S REEBOK PP TIGHTS",
+      price: 749,
+      strikedoffprice: 1299,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GK6777/reebok_GK6777_1.jpg.plp",
+      name: "WOMEN'S REEBOK CLASSIC LEGGINGS",
+      price: 1399,
+      strikedoffprice: 2799,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GM3404/adidas_GM3404_1.jpg.plp",
+      name: "WOMEN'S REEBOK CLASSIC TIGHTS",
+      price: 1099,
+      strikedoffprice: 1249,
+    },
+    {
+      image_url:
+        "https://content.shop4reebok.com/static/Product-GL5609/reebok_GL5609_1.jpg.plp",
+      name: "UNISEX REEBOK SHOW SHOES",
+      price: 1249,
+      strikedoffprice: 1489,
+    },
+    
+  ];
+
+  womensData.forEach(function(elem){
+    var card = document.createElement("div");
+
+    var image = document.createElement("img");
+    image.setAttribute("src",elem.image_url);
+
+    var dname = document.createElement("h4");
+    dname.innerText = elem.name;
+
+    var dprice = document.createElement("p");
+    dprice.innerText = elem.price;
+
+    var sdprice = document.createElement("p");
+    sdprice.innerText = elem.strikedoffprice;
+
+    var card1 = document.createElement("div");
+    card1.append(dprice,sdprice);
+
+    var btn = document.createElement("button");
+    btn.innerText = "Add to Cart";
+    btn.addEventListener("click",function(){
+      addToCart(elem);
+    })
+
+    card.append(image,dname,card1,btn);
+    document.querySelector("#container").append(card);
+
+    function addToCart(elem){
+      var flag = true;
+        cartArr.forEach(function(ele){
+          if(elem.image_url===ele.image_url&&elem.name===ele.name&&elem.price===ele.price&&elem.strikedoffprice===ele.strikedoffprice){
+            flag = false;
+          }
+        })
+       if(flag) {
+        cartArr.push(elem);
+        localStorage.setItem("cartData",JSON.stringify(cartArr));
+        alert("Item added successfully!")
+       }
+       else {
+         alert("Item already added!")
+       }
+        
+    }
+  })
+  function signupPage() {
+        window.location.href = "signup.html"
+    }
+    function loginPage() {
+        window.location.href = "login.html"
+    }
+    function mensPage() {
+        var token = localStorage.getItem("token");
+        if (token) {
+            window.location.href = "mens.html"
+        }
+        else {
+            alert("Please login to start using our services!");
+            window.location.href = "login.html"
+        }
+    }
+    function womensPage() {
+        var token = localStorage.getItem("token");
+        if (token) {
+            window.location.href = "womens.html"
+        }
+        else {
+            alert("Please login to start using our services!");
+            window.location.href = "login.html"
+        }
+    }
+
+
+
+</script>
